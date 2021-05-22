@@ -60,7 +60,7 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
 
             <div className='flex flex-col space-y-2 my-auto justify-self-end'>
                 <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addItemToBasket} />
-                <div>{num}</div>
+                <div className='text-center'>{num}</div>
                 <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
             </div>
         </div>
