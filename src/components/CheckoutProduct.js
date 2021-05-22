@@ -29,7 +29,7 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
     }
     return (
         <div className='grid grid-cols-5 relative'>
-            <XCircleIcon className='absolute top-2 left-2 h-6 text-red-500 cursor-pointer' onClick={removeProduct} />
+            <XCircleIcon className='absolute top-2 left-2 h-5 text-red-500 cursor-pointer' onClick={removeProduct} />
             <Image 
                 src={image}
                 height={200}
