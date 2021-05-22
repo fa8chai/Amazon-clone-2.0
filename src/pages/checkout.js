@@ -5,11 +5,17 @@ import Header from "../components/Header";
 import { selectItems, selectTotal } from "../slices/basketSlice";
 import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/client";
+import { groupBy } from "../functions";
 
 function Checkout() {
     const items = useSelector(selectItems);
     const [session] = useSession();
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price , 0));
+    const grouped = groupBy(items, product => product.id);
+    const groupedProducts = Array.from(grouped).map(gr => ({
+        id:gr[0],
+        products: gr[1]
+    }));
 
     return (
         <div className='bg-gray-100'>
@@ -28,15 +34,18 @@ function Checkout() {
                             {items.length === 0 ? 'Your Amazon Basket is Empty':'Shopping Basket'}
                             </h1>
 
-                        {items.map((item, i) => (
+                        {groupedProducts.map((productsId, i) => (
                             <CheckoutProduct 
                             key={i}
-                            id={item.id}
-                            title={item.title}
-                            price={item.price}
-                            rating={item.rating}
-                            description={item.description} category={item.category}image={item.image}
-                            hasPrime={item.hasPrime}
+                            id={productsId.products[0].id}
+                            title={productsId.products[0].title}
+                            price={productsId.products[0].price}
+                            rating={productsId.products[0].rating}
+                            description={productsId.products[0].description} 
+                            category={productsId.products[0].category}
+                            image={productsId.products[0].image}
+                            hasPrime={productsId.products[0].hasPrime}
+                            num={productsId.products.length}
                             />
                         ))}
                     </div>

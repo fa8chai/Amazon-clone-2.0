@@ -1,16 +1,19 @@
-import { StarIcon } from "@heroicons/react/solid";
+import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
 import Image from "next/image";
+import {XCircleIcon} from "@heroicons/react/outline";
 import Currency from 'react-currency-formatter';
 import { useDispatch } from 'react-redux';
-import { addToBasket, removeFromBasket } from "../slices/basketSlice";
+import { addToBasket, removeFromBasket, remove } from "../slices/basketSlice";
 
-function CheckoutProduct({ id, title, price, rating, description, category, image, hasPrime }) {
+function CheckoutProduct({ id, title, price, rating, description, category, image, hasPrime, num }) {
     const dispatch = useDispatch();
 
     const removeItemFromBasket = () => {
         dispatch(removeFromBasket({ id }))
     };
-    
+    const removeProduct = () => {
+        dispatch(remove({ id }))
+    }
     const addItemToBasket = () => {
         const product = {
             id,
@@ -25,7 +28,8 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
         dispatch(addToBasket(product));
     }
     return (
-        <div className='grid grid-cols-5'>
+        <div className='grid grid-cols-5 relative'>
+            <XCircleIcon className='absolute top-2 left-2 h-6 text-red-500 cursor-pointer' onClick={removeProduct} />
             <Image 
                 src={image}
                 height={200}
@@ -55,8 +59,9 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
             </div>
 
             <div className='flex flex-col space-y-2 my-auto justify-self-end'>
-                <button onClick={addItemToBasket} className='button'>Add to Basket</button>
-                <button onClick={removeItemFromBasket} className='button'>Remove from Basket</button>
+                <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addItemToBasket} />
+                <div>{num}</div>
+                <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
             </div>
         </div>
     )
