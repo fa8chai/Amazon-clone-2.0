@@ -13,7 +13,8 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 function Checkout() {
     const items = useSelector(selectItems);
     const [session] = useSession();
-    const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price , 0));
+    const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price * item.quantity , 0));
+    const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));
 
     const createCheckoutSession = async () => {
         const stripe = await stripePromise;
@@ -68,7 +69,7 @@ function Checkout() {
                 <div className='flex flex-col bg-white p-10 shadow-md '>
                     {items.length > 0 && (
                         <>
-                            <h2 className='whitespace-nowrap'>Subtotal ({items.length} items):{' '}
+                            <h2 className='whitespace-nowrap'>Subtotal ({totalItems} items):{' '}
                                 <span className='font-bold'>
                                     <Currency quantity={total} />
                                 </span>
