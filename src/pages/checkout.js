@@ -16,7 +16,7 @@ function Checkout() {
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price , 0));
 
     const createCheckoutSession = async () => {
-        const stripe = await stripePromise;
+        const stripe = stripePromise;
 
         const CheckoutSession = await axios.post('/api/create-checkout-session', {
             items,
