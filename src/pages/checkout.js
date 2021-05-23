@@ -7,8 +7,9 @@ import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/client";
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import Stripe from "stripe";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+const stripe = Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 function Checkout() {
     const items = useSelector(selectItems);
@@ -17,7 +18,6 @@ function Checkout() {
     const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));
 
     const createCheckoutSession = async () => {
-        const stripe = await stripePromise;
 
         const CheckoutSession = await axios.post('/api/create-checkout-session', {
             items,
