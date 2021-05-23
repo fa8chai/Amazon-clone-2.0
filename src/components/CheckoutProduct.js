@@ -46,7 +46,7 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
                         <StarIcon className='h-5 text-yellow-500' />
                     ))}
                 </div>
-                <p class='text-xs my-2 line-clamp-3'>{description}</p>
+                <p className='text-xs my-2 line-clamp-3'>{description}</p>
                 <Currency quantity={price} />
                 {hasPrime && (
                     <div className='flex items-center space-x-2'>
