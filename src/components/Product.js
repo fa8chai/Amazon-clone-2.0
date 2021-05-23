@@ -2,19 +2,22 @@ import { useState } from "react";
 import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/solid';
 import Currency from 'react-currency-formatter';
-import { useDispatch } from 'react-redux';
-import { addToBasket } from "../slices/basketSlice";
+import { add, addToBasket, selectItems } from "../slices/basketSlice";
+import { useDispatch, useSelector } from 'react-redux';
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 
-function Product({ id, title, price, description, category, image }) {
+function Product({ id, title, price, description, category, image, quantity }) {
+    const dispatch = useDispatch();
+    const items = useSelector(selectItems);
+
+    
     const [rating] = useState(
         Math.floor(Math.random() * (MAX_RATING - MIN_RATING +1)) + MIN_RATING
     );
     const [hasPrime] = useState(Math.random() < 0.5)
-    
-    const dispatch = useDispatch();
+        
     const addItemToBasket = () => {
         const product = {
             id,
@@ -24,10 +27,15 @@ function Product({ id, title, price, description, category, image }) {
             description, 
             category, 
             image,
-            hasPrime
+            hasPrime,
+            quantity
         }
-
-        dispatch(addToBasket(product));
+        const index = items?.findIndex(basketItem => basketItem.id === product.id);
+        if (index >= 0) {
+            dispatch(add(product))
+        }else{
+            dispatch(addToBasket(product));
+        }
     }
 
     return (

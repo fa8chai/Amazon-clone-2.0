@@ -1,20 +1,23 @@
-import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
+import { StarIcon, PlusIcon, MinusIcon, XCircleIcon } from "@heroicons/react/solid";
 import Image from "next/image";
-import {XCircleIcon} from "@heroicons/react/outline";
 import Currency from 'react-currency-formatter';
 import { useDispatch } from 'react-redux';
-import { addToBasket, removeFromBasket, remove } from "../slices/basketSlice";
+import { removeFromBasket, remove, add } from "../slices/basketSlice";
 
-function CheckoutProduct({ id, title, price, rating, description, category, image, hasPrime, num }) {
+function CheckoutProduct({ id, title, price, rating, description, category, image, hasPrime, quantity }) {
     const dispatch = useDispatch();
 
     const removeItemFromBasket = () => {
-        dispatch(removeFromBasket({ id }))
+        if (quantity > 1) {
+            dispatch(removeFromBasket({ id }))
+        } else {
+            dispatch(remove({ id }))
+        }
     };
     const removeProduct = () => {
         dispatch(remove({ id }))
     }
-    const addItemToBasket = () => {
+    const addProduct = () => {
         const product = {
             id,
             title, 
@@ -23,13 +26,13 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
             description, 
             category, 
             image,
-            hasPrime
+            quantity
         }
-        dispatch(addToBasket(product));
+        dispatch(add(product));
     }
     return (
         <div className='grid grid-cols-5 relative'>
-            <XCircleIcon className='absolute top-2 left-2 h-5 text-red-500 cursor-pointer' onClick={removeProduct} />
+            <XCircleIcon className='absolute top-0 z-30 left-2 h-5 text-red-500 cursor-pointer' onClick={removeProduct} />
             <Image 
                 src={image}
                 height={200}
@@ -59,8 +62,8 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
             </div>
 
             <div className='flex flex-col space-y-2 my-auto justify-self-end'>
-                <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addItemToBasket} />
-                <div className='text-center'>{num}</div>
+                <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addProduct} />
+                <div className='text-center'>{quantity}</div>
                 <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
             </div>
         </div>
