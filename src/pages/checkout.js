@@ -15,19 +15,8 @@ function Checkout() {
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price * item.quantity , 0));
     const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));
 
-    const createCheckoutSession = async () => {
-        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
-
-        const CheckoutSession = await axios.post('/api/create-checkout-session', {
-            items,
-            email: session.user.email
-        });
-
-        const result = await stripe.redirectToCheckout({
-            sessionId: CheckoutSession.data.id
-        });
-
-        if(result.error) alert(result.error.message);
+    const createCheckoutSession = () => {
+        console.log('ok')
     
 
     }
