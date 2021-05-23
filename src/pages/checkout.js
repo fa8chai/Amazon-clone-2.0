@@ -8,7 +8,7 @@ import { useSession } from "next-auth/client";
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
 
-const stripePromise = await loadStripe(process.env.STRIPE_PUBLIC_KEY)
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY)
 
 function Checkout() {
     const items = useSelector(selectItems);
@@ -16,7 +16,7 @@ function Checkout() {
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price , 0));
 
     const createCheckoutSession = async () => {
-        const stripe = stripePromise;
+        const stripe = await stripePromise;
 
         const CheckoutSession = await axios.post('/api/create-checkout-session', {
             items,
