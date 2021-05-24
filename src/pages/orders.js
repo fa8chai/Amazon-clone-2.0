@@ -3,6 +3,7 @@ import db from "../../firebase";
 import moment from 'moment';
 import Header from '../components/Header';
 import Head from "next/head";
+import Order from '../components/Order';
 
 function Orders({ orders, session }) {
 
