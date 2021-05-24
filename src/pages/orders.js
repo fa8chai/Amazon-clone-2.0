@@ -46,30 +46,35 @@ function Orders({ orders, session }) {
 export default Orders
 
 export async function getServerSideProps(context) {
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-    const session = await getSession(context);
-    if(!session){
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+
+    const session = await getSession(context)
+
+    if (!session) {
         return {
-            props: {},
-        };
+            props: {}
+        }
     }
 
-    // firebase db
-    const stripeOrders = await db.collection('users').doc(session.user.email).collection('orders').orderBy('timestamp', 'desc').get();
+    const stripeOrders = await db
+        .collection('users')
+        .doc(session.user.email)
+        .collection('orders')
+        .orderBy('timestamp', 'desc')
+        .get()
 
-    //stripe orders
     const orders = await Promise.all(
-        stripeOrders.docs.map(async (order) => ({
+        stripeOrders.docs.map(async order => ({
             id: order.id,
             amount: order.data().amount,
             amountShipping: order.data().amount_shipping,
             images: order.data().images,
-            timestamp: moment(order.data().timestamp.toDate().unix()),
+            timestamp: moment(order.data().timestamp.toDate()).unix(),
             items: (
                 await stripe.checkout.sessions.listLineItems(order.id, {
                     limit: 100
                 })
-            ).data,
+            ).data
         }))
     )
 
