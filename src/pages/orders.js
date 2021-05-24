@@ -3,12 +3,14 @@ import db from "../../firebase";
 import moment from 'moment';
 import Header from '../components/Header';
 
-function Orders({ orders }) {
+function Orders({ orders, session }) {
     const [session] = useSession();
 
     return (
         <div>
-            {console.log(orders)}
+            <Head>
+                <title>{session && `${session.user.name}'s`} Orders | Amazon 2.0</title>
+            </Head>
             <Header />
             <main className='max-w-screen-lg mx-auto p-10'>
                 <h1 className='text-3xl border-b mb-2 pb- 1 broder-yellow-400'>Your Orders</h1>
@@ -74,6 +76,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             orders,
+            session
         }
     }
 }
