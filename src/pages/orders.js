@@ -2,6 +2,7 @@ import { getSession } from "next-auth/client";
 import db from "../../firebase";
 import moment from 'moment';
 import Header from '../components/Header';
+import Head from "next/head";
 
 function Orders({ orders, session }) {
 
