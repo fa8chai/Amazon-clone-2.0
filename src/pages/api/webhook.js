@@ -1,6 +1,5 @@
 import { buffer } from 'micro';
 import * as admin from 'firebase-admin';
-import { PauseIcon, TrendingUpIcon } from '@heroicons/react/solid';
 
 const serviceAccount = require('../../../permissions.json');
 
@@ -9,9 +8,9 @@ const app = !admin.apps.length ? admin.initializeApp({
 }) : admin.app();
 
 
-const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const endpointSecret = process.env.STRIPE_SIGNIN_SECRET;
+const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
 
 const fulfillOrder = async (session) => {
