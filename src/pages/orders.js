@@ -31,8 +31,8 @@ function Orders({ orders, session }) {
                             amount={order.amount}
                             amountShipping={order.amountShipping}
                             items={order.items}
-                            timestamp={timestamp}
-                            images={images}
+                            timestamp={order.timestamp}
+                            images={order.images}
                         />
                     ))}
                 </div>
