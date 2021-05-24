@@ -1,10 +1,9 @@
-import { getSession, useSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import db from "../../firebase";
 import moment from 'moment';
 import Header from '../components/Header';
 
 function Orders({ orders, session }) {
-    const [session] = useSession();
 
     return (
         <div>
