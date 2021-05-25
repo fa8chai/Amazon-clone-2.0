@@ -37,9 +37,7 @@ function ProductPage() {
     const addProduct = () => {
         dispatch(add(product));
     }
-    if(!product){
-        return router.push('/')
-    }
+  
     return (
         <div>
             {console.log(item)}
