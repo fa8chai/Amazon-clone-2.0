@@ -25,11 +25,9 @@ function ProductPage() {
     const addProduct = () => {
         dispatch(add(product));
     }
-    if(!product){
-        return router.push('/');
-    }
     return (
         <div>
+            {!product && router.push('/')}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
