@@ -63,7 +63,7 @@ function ProductPage() {
         <div>
             {console.log(product)}
             <Head>
-                <title>Amazon 2.0 | {product.title}</title>
+                <title>Amazon 2.0 | {product?.title}</title>
             </Head>
             <Header />
         <div className='flex flex-col items-center lg:flex-row lg:space-x-4 max-w-screen-lg mx-auto mt-10'>

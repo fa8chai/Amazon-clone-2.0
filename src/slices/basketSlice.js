@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
-  product: localStorage.getItem('product')
+  product: {}
 };
 
 export const basketSlice = createSlice({
@@ -32,7 +32,7 @@ export const basketSlice = createSlice({
     );
     },
     setProduct: (state, action) => {
-      state.product = localStorage.setItem('product' ,action.payload.product)
+      state.product = action.payload.product
     }
   },
 });
