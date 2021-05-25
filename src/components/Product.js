@@ -4,27 +4,22 @@ import Currency from 'react-currency-formatter';
 import { add, addToBasket, selectItems, setProduct } from "../slices/basketSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/router";
-const MAX_RATING = 5;
-const MIN_RATING = 1;
 
-function Product({ id, title, price, description, category, image, quantity }) {
+function Product({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
     const items = useSelector(selectItems);
     const router = useRouter();
-    const [rating] = Math.floor(Math.random() * (MAX_RATING - MIN_RATING +1)) + MIN_RATING
-    const [hasPrime] = Math.random() < 0.5
-
 
     const product = {
         id,
         title, 
         price,
-        rating,
         description, 
         category, 
         image,
+        quantity,
+        rating,
         hasPrime,
-        quantity
     }
         
     const addItemToBasket = () => {

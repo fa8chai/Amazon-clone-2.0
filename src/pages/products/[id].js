@@ -33,16 +33,6 @@ function ProductPage() {
         }
     };
     const addProduct = () => {
-        const product = {
-            id,
-            title, 
-            price,
-            rating,
-            description, 
-            category, 
-            image,
-            quantity
-        }
         dispatch(add(product));
     }
     return (

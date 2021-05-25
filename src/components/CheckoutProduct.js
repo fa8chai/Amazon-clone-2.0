@@ -4,7 +4,7 @@ import Currency from 'react-currency-formatter';
 import { useDispatch } from 'react-redux';
 import { removeFromBasket, remove, add } from "../slices/basketSlice";
 
-function CheckoutProduct({ id, title, price, rating, description, category, image, hasPrime, quantity }) {
+function CheckoutProduct({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
 
     const removeItemFromBasket = () => {
@@ -22,11 +22,12 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
             id,
             title, 
             price,
-            rating,
             description, 
             category, 
             image,
-            quantity
+            quantity,
+            rating,
+            hasPrime
         }
         dispatch(add(product));
     }

@@ -53,12 +53,12 @@ function Checkout() {
                             id={item.id}
                             title={item.title}
                             price={item.price}
-                            rating={item.rating}
                             description={item.description} 
                             category={item.category}
                             image={item.image}
-                            hasPrime={item.hasPrime}
                             quantity={item.quantity}
+                            rating={item.rating}
+                            hasPrime={item.hasPrime}
                             />
                         ))}
                     </div>
