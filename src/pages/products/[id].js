@@ -26,14 +26,14 @@ function ProductPage() {
     }
     return (
         <div>
-            {!product && router.push('/')}
             <Head>
-                <title>Amazon 2.0 | {product.title}</title>
+                <title>Amazon 2.0 | {product?.title}</title>
             </Head>
             <Header />
+            {!product && router.push('/')}
         <div className='flex flex-col items-center lg:flex-row lg:space-x-4 max-w-screen-lg mx-auto mt-10'>
             <Image
-                src={product.image}
+            src={product.image}
                 height={400}
                 width={400}
                 objectFit='contain'
