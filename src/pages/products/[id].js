@@ -6,6 +6,7 @@ import Currency from 'react-currency-formatter';
 import Head from "next/head";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
 import Header from '../../components/Header';
+import { useState } from 'react';
 
 
 function ProductPage() {
@@ -14,10 +15,9 @@ function ProductPage() {
     const product = useSelector(selectProduct);
     const items = useSelector(selectItems)
     const dispatch = useDispatch();
-    
+    const index = items?.findIndex(basketItem => basketItem.id === product.id);    
        
     const addItemToBasket = () => {
-        const index = items?.findIndex(basketItem => basketItem.id === product.id);
         if (index >= 0) {
             dispatch(add(product))
         }else{
@@ -70,7 +70,7 @@ function ProductPage() {
                 </div>
                 )}
 
-                {product.quantity === 0 ? (
+                {!index >= 0 ? (
                     <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
 
                 ) : (
