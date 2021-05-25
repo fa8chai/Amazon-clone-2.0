@@ -24,6 +24,27 @@ function ProductPage() {
             dispatch(addToBasket(product));
         }
     }
+
+    const removeItemFromBasket = () => {
+        if (quantity > 1) {
+            dispatch(removeFromBasket({ id }))
+        } else {
+            dispatch(remove({ id }))
+        }
+    };
+    const addProduct = () => {
+        const product = {
+            id,
+            title, 
+            price,
+            rating,
+            description, 
+            category, 
+            image,
+            quantity
+        }
+        dispatch(add(product));
+    }
     return (
         <div>
             {!product && router.push('/')}
