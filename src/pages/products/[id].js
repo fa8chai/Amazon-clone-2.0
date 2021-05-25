@@ -46,7 +46,7 @@ function ProductPage() {
         dispatch(add(product));
     }   
     useEffect(() => {
-        if(product.length > 0){
+        if(!product){
 
             Router.push('/')
             location.replace("/")
@@ -68,39 +68,39 @@ function ProductPage() {
             <Header />
         <div className='flex flex-col items-center lg:flex-row lg:space-x-4 max-w-screen-lg mx-auto mt-10'>
             <Image
-                src={product.image}
+                src={product?.image}
                 height={400}
                 width={400}
                 objectFit='contain'
             />
             <div className='relative flex flex-col p-5 lg:p-10 flex-grow-0'>
-                <p className='absolute top-2 right-2 text-xs italic text-gray-400'>{product.category}</p>
-                <h1 className='text-3xl mb-5'>{product.title}</h1>
+                <p className='absolute top-2 right-2 text-xs italic text-gray-400'>{product?.category}</p>
+                <h1 className='text-3xl mb-5'>{product?.title}</h1>
                 <p className='font-bold mx-5'>
                 <Currency
-                    quantity={product.price}
+                    quantity={product?.price}
                 />
                 </p>
-                <p className='text-gray-500 my-5'>{product.description}</p>
+                <p className='text-gray-500 my-5'>{product?.description}</p>
                 <div className='flex ml-5 z-3'>
-                {Array(product.rating).fill().map((_, i) => (
+                {Array(product?.rating).fill().map((_, i) => (
                     <StarIcon key={i} className='h-5 text-yellow-500' />
                 ))}
                 </div>
-                {product.hasPrime && (
+                {product?.hasPrime && (
                 <div className='flex items-center space-x-2 -mt-5'>
                     <img className='w-12' src='https://links.papareact.com/fdw' alt='' />
                     <p className='text-xs text-gray-500'>FREE Next-day Delivery</p>
                 </div>
                 )}
 
-                {product.quantity === 0 ? (
+                {product?.quantity === 0 ? (
                     <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
 
                 ) : (
                     <div className='grid grid-cols-5'>
                         <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={addProduct} />
-                        <div className='text-center mx-auto'>{product.quantity}</div>
+                        <div className='text-center mx-auto'>{product?.quantity}</div>
                         <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={removeItemFromBasket} />
                     </div>
                 )}
