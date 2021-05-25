@@ -16,7 +16,9 @@ function ProductPage() {
     const items = useSelector(selectItems)
     const dispatch = useDispatch();
     const index = items?.findIndex(basketItem => basketItem.id === product.id);    
-
+    const item = items?.find(i => i.id === id);
+    
+    
     const addItemToBasket = () => {
         if (index >= 0) {
             dispatch(add(product))
@@ -24,16 +26,30 @@ function ProductPage() {
             dispatch(addToBasket(product));
         }
     }
+
+    const removeItemFromBasket = () => {
+        if (product.quantity > 1) {
+            dispatch(removeFromBasket({ id }))
+        } else {
+            dispatch(remove({ id }))
+        }
+    };
+    const addProduct = () => {
+        dispatch(add(product));
+    }
+    if(!product){
+        return router.push('/')
+    }
     return (
         <div>
+            {console.log(item)}
             <Head>
-                <title>Amazon 2.0 | {product?.title}</title>
+                <title>Amazon 2.0 | {product.title}</title>
             </Head>
             <Header />
-            {!product && router.push('/')}
         <div className='flex flex-col items-center lg:flex-row lg:space-x-4 max-w-screen-lg mx-auto mt-10'>
             <Image
-            src={product.image}
+                src={product.image}
                 height={400}
                 width={400}
                 objectFit='contain'
@@ -59,7 +75,16 @@ function ProductPage() {
                 </div>
                 )}
 
-                <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
+                {index < 0 ? (
+                    <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
+
+                ) : (
+                    <div className='grid grid-cols-5'>
+                        <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={addProduct} />
+                        <div className='text-center mx-auto'>{item.quantity}</div>
+                        <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={removeItemFromBasket} />
+                    </div>
+                )}
             </div>
             </div>
         </div>
