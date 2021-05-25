@@ -17,8 +17,7 @@ function ProductPage() {
     const dispatch = useDispatch();
     const index = items?.findIndex(basketItem => basketItem.id === product.id);    
     const item = items?.find(i => i.id === id);
-    
-    
+
     const addItemToBasket = () => {
         if (index >= 0) {
             dispatch(add(product))
@@ -40,7 +39,7 @@ function ProductPage() {
   
     return (
         <div>
-            {console.log(item)}
+            {console.log(quantity)}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
@@ -79,7 +78,7 @@ function ProductPage() {
                 ) : (
                     <div className='grid grid-cols-5'>
                         <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={addProduct} />
-                        <div className='text-center mx-auto'>{item.quantity}</div>
+                        <div className='text-center mx-auto'>{item?.quantity}</div>
                         <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={removeItemFromBasket} />
                     </div>
                 )}
