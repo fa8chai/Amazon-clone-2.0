@@ -4,12 +4,15 @@ import Currency from 'react-currency-formatter';
 import { add, addToBasket, selectItems, setProduct } from "../slices/basketSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/router";
-
+const MAX_RATING = 5;
+const MIN_RATING = 1;
 
 function Product({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
     const items = useSelector(selectItems);
     const router = useRouter();
+    const [rating] = Math.floor(Math.random() * (MAX_RATING - MIN_RATING +1)) + MIN_RATING
+    const [hasPrime] = Math.random() < 0.5
 
 
     const product = {
@@ -38,9 +41,9 @@ function Product({ id, title, price, description, category, image, quantity, rat
     }
 
     return (
-        <div className='relative flex flex-col m-5 bg-white z-30 p-10 cursor-pointer'>
+        <div className='relative flex flex-col m-5 bg-white z-30 p-10'>
             <p className='absolute top-2 right-2 text-xs italic text-gray-400'>{category}</p>
-            <Image onClick={handleClick} src={image} height={200} width={200} objectFit='contain' />
+            <Image classNam='cursor-pointer' onClick={handleClick} src={image} height={200} width={200} objectFit='contain' />
             <h4 className='my-3'>{title}</h4>
             <div className='flex'>
                 {Array(rating).fill().map((_, i) => (

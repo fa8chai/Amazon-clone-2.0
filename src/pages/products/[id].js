@@ -39,7 +39,7 @@ function ProductPage() {
                 width={400}
                 objectFit='contain'
             />
-            <div className='relative flex flex-col flex-grow-1 p-5 lg:p-10'>
+            <div className='relative flex flex-col p-5 lg:p-10'>
                 <p className='absolute top-2 right-2 text-xs italic text-gray-400'>{product.category}</p>
                 <h1 className='text-3xl mb-5'>{product.title}</h1>
                 <p className='font-bold mx-5'>
@@ -60,16 +60,12 @@ function ProductPage() {
                 </div>
                 )}
 
-                {product.quantity === 0 ? (
-                    <button onClick={() => dispatch(addToBasket(product))} className='my-5 button'>Add to Basket</button>
-
-                ) : (
+  
                     <div className='flex items-center space-x-2'>
                         <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addProduct} />
                         <div className='text-center'>{product.quantity}</div>
                         <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
                     </div>
-                )}
             </div>
             </div>
         </div>
