@@ -39,7 +39,7 @@ function ProductPage() {
   
     return (
         <div>
-            {console.log(quantity)}
+            {console.log(item)}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
