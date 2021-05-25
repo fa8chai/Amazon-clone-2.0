@@ -26,7 +26,7 @@ function ProductPage() {
     }
 
     const removeItemFromBasket = () => {
-        if (quantity > 1) {
+        if (product.quantity > 1) {
             dispatch(removeFromBasket({ id }))
         } else {
             dispatch(remove({ id }))
@@ -74,10 +74,10 @@ function ProductPage() {
                     <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
 
                 ) : (
-                    <div className='flex items-center space-x-2'>
-                        <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addProduct} />
+                    <div className='grid grid-cols-5'>
+                        <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer' onClick={addProduct} />
                         <div className='text-center'>{product.quantity}</div>
-                        <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
+                        <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
                     </div>
                 )}
             </div>
