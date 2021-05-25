@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { add, addToBasket, remove, removeFromBasket, selectItems, selectProduct } from '../../slices/basketSlice';
+import { add, addToBasket, remove, removeFromBasket, selectItems, selectProduct, setProduct } from '../../slices/basketSlice';
 import Currency from 'react-currency-formatter';
 import Head from "next/head";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
@@ -20,15 +20,22 @@ function ProductPage() {
 
         if (index >= 0) {
             dispatch(add(product))
+            dispatch(setProduct({...product, quantity: product.quantity + 1}))
         }else{
             dispatch(addToBasket(product));
+            dispatch(setProduct({...product, quantity: 1}))
+
         }
     }
 
     const removeItemFromBasket = () => {
         if (product.quantity > 1) {
             dispatch(removeFromBasket({ id }))
+            dispatch(setProduct({...product, quantity: product.quantity - 1}))
+
         } else {
+            dispatch(setProduct({...product, quantity: 0}))
+
             dispatch(remove({ id }))
         }
     };
@@ -38,7 +45,7 @@ function ProductPage() {
   
     return (
         <div>
-            {console.log(product)}
+            {console.log(item)}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
