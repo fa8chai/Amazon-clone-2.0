@@ -20,21 +20,21 @@ function ProductPage() {
 
     const addItemToBasket = () => {
         if (index >= 0) {
-            dispatch(add(product))
+            dispatch(add(item))
         }else{
             dispatch(addToBasket(product));
         }
     }
 
     const removeItemFromBasket = () => {
-        if (product.quantity > 1) {
+        if (item.quantity > 1) {
             dispatch(removeFromBasket({ id }))
         } else {
             dispatch(remove({ id }))
         }
     };
     const addProduct = () => {
-        dispatch(add(product));
+        dispatch(add(item));
     }
   
     return (
