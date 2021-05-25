@@ -60,7 +60,7 @@ function ProductPage() {
                 />
                 </p>
                 <p className='text-gray-500 my-5'>{product.description}</p>
-                <div className='flex ml-5'>
+                <div className='flex ml-5 z-3'>
                 {Array(product.rating).fill().map((_, i) => (
                     <StarIcon key={i} className='h-5 text-yellow-500' />
                 ))}
