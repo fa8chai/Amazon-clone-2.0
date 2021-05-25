@@ -16,7 +16,7 @@ function ProductPage() {
     const items = useSelector(selectItems)
     const dispatch = useDispatch();
     const index = items?.findIndex(basketItem => basketItem.id === product.id);    
-       
+    const item = items?.find(i => i.id === id);
     const addItemToBasket = () => {
         if (index >= 0) {
             dispatch(add(product))
@@ -35,9 +35,11 @@ function ProductPage() {
     const addProduct = () => {
         dispatch(add(product));
     }
+    if(!product){
+        return router.push('/');
+    }
     return (
         <div>
-            {!product && router.push('/')}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
@@ -75,9 +77,9 @@ function ProductPage() {
 
                 ) : (
                     <div className='grid grid-cols-5'>
-                        <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer' onClick={addProduct} />
-                        <div className='text-center'>{product.quantity}</div>
-                        <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
+                        <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center' onClick={addProduct} />
+                        <div className='text-center'>{item.quantity}</div>
+                        <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center' onClick={removeItemFromBasket} />
                     </div>
                 )}
             </div>
