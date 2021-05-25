@@ -17,7 +17,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                         <Currency quantity={amountShipping} />
                     </p>
                 </div>
-                <p className='text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500'>{items.length} items</p>
+                <p className='text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500'>{items.length > 1 ? `${items.length} items` : `${items.length} item`} </p>
                 <p className='absolute top-2 right-2 w-40 lg:w72 truncate text-xs whitespace-nowrap'>
                     ORDER # {id}
                 </p>
@@ -26,7 +26,12 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
             <div className='p-5 sm:p-10'>
                 <div className='flex space-x-6 overflow-x-auto'>
                     {images.map(image => (
-                        <img className='h-20 object-contain sm:h-32' src={image} alt='' />
+                        <div className='relative'>
+                            <img className='h-20 object-contain sm:h-32' src={image} alt='' />
+                            {items?.map(item => (
+                                <span className='absolute top-0 left-0 h-4 w-4 text-center rounded-full text-yellow z-30'>{item.quantity}</span>
+                            ))}
+                        </div>
                     ))}
                 </div>
             </div>

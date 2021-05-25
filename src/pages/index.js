@@ -22,12 +22,23 @@ export default function Home({ products }) {
 }
 
 export async function getServerSideProps(context){
-  const session = await getSession(context);
   const products = await fetch('https://fakestoreapi.com/products').then(res => res.json())
-
+  const MAX_RATING = 5;
+  const MIN_RATING = 1;
+  const getRating = () => {
+    return Math.floor(Math.random() * (MAX_RATING - MIN_RATING +1)) + MIN_RATING
+  };
+  const getPrime = () => {
+    return Math.random() < 0.5
+  }
   return { props: {
     products: products.map(product => (
-      {...product, quantity: 1}
+      {...product, 
+        quantity: 0, 
+        rating: getRating(),
+        hasPrime: getPrime()
+      
+      }
     ))
   } }
 

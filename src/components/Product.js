@@ -1,35 +1,30 @@
-import { useState } from "react";
 import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/solid';
 import Currency from 'react-currency-formatter';
-import { add, addToBasket, selectItems } from "../slices/basketSlice";
+import { add, addToBasket, selectItems, setProduct } from "../slices/basketSlice";
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from "next/router";
 
-const MAX_RATING = 5;
-const MIN_RATING = 1;
 
-function Product({ id, title, price, description, category, image, quantity }) {
+function Product({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
     const items = useSelector(selectItems);
+    const router = useRouter();
 
-    
-    const [rating] = useState(
-        Math.floor(Math.random() * (MAX_RATING - MIN_RATING +1)) + MIN_RATING
-    );
-    const [hasPrime] = useState(Math.random() < 0.5)
+
+    const product = {
+        id,
+        title, 
+        price,
+        rating,
+        description, 
+        category, 
+        image,
+        hasPrime,
+        quantity
+    }
         
     const addItemToBasket = () => {
-        const product = {
-            id,
-            title, 
-            price,
-            rating,
-            description, 
-            category, 
-            image,
-            hasPrime,
-            quantity
-        }
         const index = items?.findIndex(basketItem => basketItem.id === product.id);
         if (index >= 0) {
             dispatch(add(product))
@@ -37,15 +32,19 @@ function Product({ id, title, price, description, category, image, quantity }) {
             dispatch(addToBasket(product));
         }
     }
+    const handleClick = () => {
+        dispatch(setProduct({product}))
+        router.push(`/products/${id}`)
+    }
 
     return (
-        <div className='relative flex flex-col m-5 bg-white z-30 p-10'>
+        <div onClick={handleClick} className='relative flex flex-col m-5 bg-white z-30 p-10 cursor-pointer'>
             <p className='absolute top-2 right-2 text-xs italic text-gray-400'>{category}</p>
             <Image src={image} height={200} width={200} objectFit='contain' />
             <h4 className='my-3'>{title}</h4>
             <div className='flex'>
                 {Array(rating).fill().map((_, i) => (
-                    <StarIcon className='h-5 text-yellow-500' />
+                    <StarIcon key={i} className='h-5 text-yellow-500' />
                 ))}
             </div>
             <p className='text-xs my-2 line-clamp-2'>{description}</p>
