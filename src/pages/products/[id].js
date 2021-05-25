@@ -13,18 +13,7 @@ function ProductPage() {
     const { id } = router.query;
     const product = useSelector(selectProduct);
     const dispatch = useDispatch();
-    
-    const removeItemFromBasket = () => {
-        if (product.quantity > 1) {
-            dispatch(removeFromBasket({ id }))
-        } else {
-            dispatch(remove({ id }))
-        }
-    };
 
-    const addProduct = () => {
-        dispatch(add(product));
-    }
     return (
         <div>
             {!product && router.push('/')}
@@ -60,12 +49,7 @@ function ProductPage() {
                 </div>
                 )}
 
-  
-                    <div className='flex items-center space-x-2'>
-                        <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addProduct} />
-                        <div className='text-center'>{product.quantity}</div>
-                        <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
-                    </div>
+                <button onClick={() => dispatch(addToBasket(product))} className='my-5 button'>Add to Basket</button>
             </div>
             </div>
         </div>
