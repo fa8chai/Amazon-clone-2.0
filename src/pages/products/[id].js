@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { add, addToBasket, remove, removeFromBasket, selectProduct } from '../../slices/basketSlice';
+import { add, addToBasket, remove, removeFromBasket, selectItems, selectProduct } from '../../slices/basketSlice';
 import Currency from 'react-currency-formatter';
 import Head from "next/head";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
@@ -12,8 +12,18 @@ function ProductPage() {
     const router = useRouter();
     const { id } = router.query;
     const product = useSelector(selectProduct);
+    const items = useSelector(selectItems)
     const dispatch = useDispatch();
-
+    
+       
+    const addItemToBasket = () => {
+        const index = items?.findIndex(basketItem => basketItem.id === product.id);
+        if (index >= 0) {
+            dispatch(add(product))
+        }else{
+            dispatch(addToBasket(product));
+        }
+    }
     return (
         <div>
             {!product && router.push('/')}
@@ -49,7 +59,16 @@ function ProductPage() {
                 </div>
                 )}
 
-                <button onClick={() => dispatch(addToBasket(product))} className='my-5 button'>Add to Basket</button>
+                {product.quantity === 0 ? (
+                    <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
+
+                ) : (
+                    <div className='flex items-center space-x-2'>
+                        <PlusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={addProduct} />
+                        <div className='text-center'>{product.quantity}</div>
+                        <MinusIcon className='h-5 text-yellow-500 cursor-pointer' onClick={removeItemFromBasket} />
+                    </div>
+                )}
             </div>
             </div>
         </div>
