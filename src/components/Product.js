@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 
-function Product({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
+function Product({ id, title, price, description, category, image, quantity }) {
     const dispatch = useDispatch();
     const items = useSelector(selectItems);
     const router = useRouter();
