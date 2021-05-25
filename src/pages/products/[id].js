@@ -26,12 +26,12 @@ function ProductPage() {
     }
     return (
         <div>
-            {!product && router.push('/')}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
             <Header />
         <div className='flex flex-col items-center lg:flex-row lg:space-x-4 max-w-screen-lg mx-auto mt-10'>
+            {!product && router.push('/')}
             <Image
                 src={product.image}
                 height={400}
