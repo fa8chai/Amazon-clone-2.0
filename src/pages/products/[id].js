@@ -72,16 +72,7 @@ function ProductPage() {
                 </div>
                 )}
 
-                {index < 0 ? (
-                    <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
-
-                ) : (
-                    <div className='grid grid-cols-5'>
-                        <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center' onClick={addProduct} />
-                        <div className='text-center'>{item.quantity}</div>
-                        <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center' onClick={removeItemFromBasket} />
-                    </div>
-                )}
+                <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
             </div>
             </div>
         </div>
