@@ -7,6 +7,7 @@ import Head from "next/head";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
 import Header from '../../components/Header';
 import Router from 'next/router'
+import { useEffect, useState } from 'react';
 
 
 function ProductPage() {
