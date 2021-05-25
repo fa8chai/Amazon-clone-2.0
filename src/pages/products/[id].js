@@ -16,7 +16,7 @@ function ProductPage() {
     const items = useSelector(selectItems)
     const dispatch = useDispatch();
     const index = items?.findIndex(basketItem => basketItem.id === product.id);    
-    const item = items?.find(i => i.id === id);
+
     const addItemToBasket = () => {
         if (index >= 0) {
             dispatch(add(product))
@@ -24,22 +24,9 @@ function ProductPage() {
             dispatch(addToBasket(product));
         }
     }
-
-    const removeItemFromBasket = () => {
-        if (product.quantity > 1) {
-            dispatch(removeFromBasket({ id }))
-        } else {
-            dispatch(remove({ id }))
-        }
-    };
-    const addProduct = () => {
-        dispatch(add(product));
-    }
-    if(!product){
-        return router.push('/');
-    }
     return (
         <div>
+            {!product && router.push('/')}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
