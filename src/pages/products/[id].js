@@ -6,6 +6,7 @@ import Currency from 'react-currency-formatter';
 import Head from "next/head";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
 import Header from '../../components/Header';
+import Router from 'next/router'
 
 
 function ProductPage() {
@@ -14,7 +15,8 @@ function ProductPage() {
     const product = useSelector(selectProduct);
     const items = useSelector(selectItems)
     const dispatch = useDispatch();
-
+    const [loaded,setLoaded] = useState(false)
+    
     const addItemToBasket = () => {
         const index = items?.findIndex(basketItem => basketItem.id === product.id);    
 
@@ -41,11 +43,24 @@ function ProductPage() {
     };
     const addProduct = () => {
         dispatch(add(product));
+    }   
+    useEffect(() => {
+        if(product.length > 0){
+
+            Router.push('/')
+            location.replace("/")
+        }else{
+            setLoaded(true)
+        }
+      },[]);
+
+    if(!loaded){
+        return <div></div>
     }
   
     return (
         <div>
-            {console.log(item)}
+            {console.log(product)}
             <Head>
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
