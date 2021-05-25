@@ -31,7 +31,7 @@ function ProductPage() {
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
             <Header />
-        <div className='flex flex-col items-center sm:flex-row'>
+        <div className='flex flex-col items-center md:flex-row max-w-screen-lg mx-auto'>
             <Image
                 src={product.image}
                 height={300}
