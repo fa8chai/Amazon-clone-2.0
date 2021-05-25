@@ -6,7 +6,6 @@ import Currency from 'react-currency-formatter';
 import Head from "next/head";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/solid";
 import Header from '../../components/Header';
-import { useState } from 'react';
 
 
 function ProductPage() {
@@ -15,26 +14,26 @@ function ProductPage() {
     const product = useSelector(selectProduct);
     const items = useSelector(selectItems)
     const dispatch = useDispatch();
-    const index = items?.findIndex(basketItem => basketItem.id === product.id);    
-    const item = items?.find(i => i.id === id);
 
     const addItemToBasket = () => {
+        const index = items?.findIndex(basketItem => basketItem.id === product.id);    
+
         if (index >= 0) {
-            dispatch(add(item))
+            dispatch(add(product))
         }else{
             dispatch(addToBasket(product));
         }
     }
 
     const removeItemFromBasket = () => {
-        if (item.quantity > 1) {
+        if (product.quantity > 1) {
             dispatch(removeFromBasket({ id }))
         } else {
             dispatch(remove({ id }))
         }
     };
     const addProduct = () => {
-        dispatch(add(item));
+        dispatch(add(product));
     }
   
     return (
@@ -72,13 +71,13 @@ function ProductPage() {
                 </div>
                 )}
 
-                {index < 0 ? (
+                {product.quantity === 0 ? (
                     <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
 
                 ) : (
                     <div className='grid grid-cols-5'>
                         <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={addProduct} />
-                        <div className='text-center mx-auto'>{item?.quantity}</div>
+                        <div className='text-center mx-auto'>{product.quantity}</div>
                         <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={removeItemFromBasket} />
                     </div>
                 )}
