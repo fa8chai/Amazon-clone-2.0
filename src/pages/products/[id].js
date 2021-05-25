@@ -32,11 +32,11 @@ function ProductPage() {
                 <title>Amazon 2.0 | {product.title}</title>
             </Head>
             <Header />
-        <div className='flex flex-col items-center md:flex-row max-w-screen-lg mx-auto'>
+        <div className='flex flex-col items-center md:flex-row md:space-x-4 max-w-screen-lg mx-auto mt-10'>
             <Image
                 src={product.image}
-                height={300}
-                width={300}
+                height={400}
+                width={400}
                 objectFit='contain'
             />
             <div className='relative flex flex-col flex-grow-1 p-5 lg:p-10'>
