@@ -9,13 +9,18 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectItems } from '../slices/basketSlice';
 import { setCollapsed } from "../slices/basketSlice";
+import { useEffect, useState } from 'react';
 
 
 function Header({ onSearchValue }) {
     const [session] = useSession();
     const router = useRouter();
-    const items = localStorage.getItem('items'); 
     const dispatch = useDispatch();
+    const [items, setItems] = useState([]);
+
+    useEffectt(() => {
+        setItems(localStorage.getItem('items'))
+    }, [])
 
     return (
         <header className='sticky top-0 left-0 right-0 z-50'>

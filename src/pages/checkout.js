@@ -7,13 +7,19 @@ import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/client";
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import { useEffect, useState } from "react";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 function Checkout() {
-    const items = localStorage.getItem('items');
     const [session] = useSession();
-    const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price * item.quantity , 0));
-    const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));
+    const [items, setItems] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
+    useEffect(() => {
+        setItems(localStorage.getItem('items'))
+        setTotal(items.reduce((total, item) => total + item.price * item.quantity , 0))
+        setTotalItems(items.reduce((total, item) => total + item.quantity , 0))
+    }, [])
 
     const createCheckoutSession = async () => {
         const stripe = await stripePromise;

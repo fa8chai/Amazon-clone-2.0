@@ -4,10 +4,15 @@ import Currency from 'react-currency-formatter';
 import { add, addToBasket, selectItems, setProduct } from "../slices/basketSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/router";
+import { useEffect, useState } from 'react';
 
 function Product({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
-    const items = localStorage.getItem('items');
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        setItems(localStorage.getItem('items'))
+    }, [])
     const router = useRouter();
 
     const product = {

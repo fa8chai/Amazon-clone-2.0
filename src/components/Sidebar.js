@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProSidebar, Menu, MenuItem , SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import styled from 'styled-components';
@@ -31,8 +31,11 @@ function Sidebar({ categories, onSearchValue }) {
     const router = useRouter();
     const collapsed = useSelector(selectCollapsed);
     const [session] = useSession();
-    const items = localStorage.getItem('items'); 
+    const [items, setItems] = useState([]);
 
+    useEffect(() => {
+        setItems(localStorage.getItem('items'))
+    }, [])
     const dispatch = useDispatch();
 
     return (<SidebarContainer>
