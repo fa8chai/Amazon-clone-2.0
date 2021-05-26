@@ -18,7 +18,7 @@ function Header({ onSearchValue }) {
     const dispatch = useDispatch();
     const [items, setItems] = useState([]);
 
-    useEffectt(() => {
+    useEffect(() => {
         setItems(localStorage.getItem('items'))
     }, [])
 
