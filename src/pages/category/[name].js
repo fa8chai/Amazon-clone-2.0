@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCategory, selectProducts } from "../../slices/basketSlice";
 import Router from 'next/router'
@@ -8,11 +7,10 @@ function CategoryPage() {
     const products = useSelector(selectProducts);
     const category = useSelector(selectCategory);
     const [loaded,setLoaded] = useState(false)
-    const router = useRouter();
 
     const categoryProducts = products.filter(product => product.category === category);
     
-    useEffectt(() => {
+    useEffect(() => {
         if(!category){
 
             Router.push('/')
