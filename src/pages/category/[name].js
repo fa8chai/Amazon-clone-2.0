@@ -43,7 +43,7 @@ function CategoryPage({ categories }) {
             <Sidebar categories={filteredCategories} onSearchValue={filterCategories} />
             <div className='w-full'>
                 <Header />
-                <main className='max-w-screen-2xl mx-auto mt-5'>
+                <main className='max-w-screen-2xl mx-auto mt-10'>
                 {categoryProducts?.length > 0 ? (
                     <ProductFeed products={categoryProducts} />
                 ) : (
