@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 
 export default function Home({ products, categories }) {
   const [filteredProducts, setfProducts] = useState(products);
-  const [filteredCategories, setCategories] = useState(categories);
   
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,12 +24,6 @@ export default function Home({ products, categories }) {
       setfProducts([...matchedProducts]);
   }
 
-  const filterCategories = (searchText) => {
-    const matchedCategories = categories.filter((category) =>
-        category.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setCategories([...matchedCategories]);
-}
   return (
     
     <div className='bg-gray-100 flex h-full'>
@@ -38,7 +31,7 @@ export default function Home({ products, categories }) {
         <title>Amazon 2.0</title>
       </Head>
 
-      <Sidebar categories={filteredCategories} onSearchValue={filterCategories} />
+      <Sidebar />
 
       <div className='w-full'>
         <Header onSearchValue={filterProducts} />

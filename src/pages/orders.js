@@ -4,14 +4,17 @@ import moment from 'moment';
 import Header from '../components/Header';
 import Head from "next/head";
 import Order from '../components/Order';
+import Sidebar from "../components/Sidebar";
 
 function Orders({ orders, session }) {
 
     return (
-        <div>
+        <div className='flex h-full'>
             <Head>
                 <title>{session && `${session.user.name}'s`} Orders | Amazon 2.0</title>
             </Head>
+            <Sidebar />
+            <div className='w-full'>
             <Header />
             <main className='max-w-screen-lg mx-auto p-10'>
                 <h1 className='text-3xl border-b mb-2 pb- 1 broder-yellow-400'>Your Orders</h1>
@@ -40,6 +43,7 @@ function Orders({ orders, session }) {
              
             </main>
             
+            </div>
         </div>
     )
 }

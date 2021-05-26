@@ -7,6 +7,8 @@ import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/client";
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import Sidebar from "../components/Sidebar";
+import Head from "next/head";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
@@ -32,9 +34,13 @@ function Checkout() {
 
     }
     return (
-        <div className='bg-gray-100'>
+        <div className='bg-gray-100 flex h-full'>
+            <Head>
+                <title>Amazon 2.0 | Checkout</title>
+            </Head>
+            <Sidebar />
+            <div className='w-full'>
             <Header />
-
             <main className='lg:flex max-w-screen-2xl mx-auto'>
                 <div className='flex-grow m-5 shadow-sm'>
                     <Image 
@@ -81,6 +87,7 @@ function Checkout() {
                     )}
                 </div>
             </main>
+            </div>
         </div>
     )
 }
