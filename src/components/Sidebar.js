@@ -39,7 +39,7 @@ function Sidebar({ categories, onSearchValue }) {
         <ProSidebar collapsedWidth={collapsed && '0'} breakPoint={!collapsed ? 'xl' : ''} toggled='true' collapsed={collapsed}>
             <SidebarHeader>
                 <SidebarHeaderContent>
-                    {session && <div className='flex justify-between p-2 '><h3>Hello {session.user.name}</h3> <Avatar alt={session.user.name} src={session.user.image} /></div>}
+                    {session && <div className='flex justify-between p-2 items-center my-auto'><h3 className='my-auto'>Hello {session.user.name}</h3> <Avatar alt={session.user.name} src={session.user.image} /></div>}
                     <div onClick={!session ? signIn: signOut}><Button>{!session ? 'Sign In':'Logout'}</Button></div>
                 </SidebarHeaderContent>
             </SidebarHeader>
