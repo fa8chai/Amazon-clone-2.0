@@ -10,7 +10,7 @@ import axios from "axios";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 function Checkout() {
-    const items = useSelector(selectItems);
+    const items = localStorage.getItem('items');
     const [session] = useSession();
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price * item.quantity , 0));
     const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));

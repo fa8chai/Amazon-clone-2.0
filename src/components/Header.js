@@ -14,7 +14,7 @@ import { setCollapsed } from "../slices/basketSlice";
 function Header({ onSearchValue }) {
     const [session] = useSession();
     const router = useRouter();
-    const items = useSelector(selectItems); 
+    const items = localStorage.getItem('items'); 
     const dispatch = useDispatch();
 
     return (

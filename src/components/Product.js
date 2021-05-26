@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 function Product({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
-    const items = useSelector(selectItems);
+    const items = localStorage.getItem('items');
     const router = useRouter();
 
     const product = {

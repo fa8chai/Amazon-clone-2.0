@@ -14,7 +14,7 @@ function ProductPage() {
     const router = useRouter();
     const { id } = router.query;
     const product = useSelector(selectProduct);
-    const items = useSelector(selectItems)
+    const items = localStorage.getItem('items');
     const dispatch = useDispatch();
     const [loaded,setLoaded] = useState(false)
     

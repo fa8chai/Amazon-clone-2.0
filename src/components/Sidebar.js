@@ -31,7 +31,7 @@ function Sidebar({ categories, onSearchValue }) {
     const router = useRouter();
     const collapsed = useSelector(selectCollapsed);
     const [session] = useSession();
-    const items = useSelector(selectItems); 
+    const items = localStorage.getItem('items'); 
 
     const dispatch = useDispatch();
 
