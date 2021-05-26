@@ -9,15 +9,23 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import Head from "next/head";
+import { useState } from "react";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
-function Checkout() {
+function Checkout({categories}) {
     const items = useSelector(selectItems);
     const [session] = useSession();
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price * item.quantity , 0));
     const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));
+    const [filteredCategories, setCategories] = useState(categories);
 
+    const filterCategories = (searchText) => {
+        const matchedCategories = categories.filter((category) =>
+            category.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setCategories([...matchedCategories]);
+    }
     const createCheckoutSession = async () => {
         const stripe = await stripePromise;
         const CheckoutSession = await axios.post('/api/create-checkout-session', {
@@ -38,7 +46,7 @@ function Checkout() {
             <Head>
                 <title>Amazon 2.0 | Checkout</title>
             </Head>
-            <Sidebar />
+            <Sidebar categories={filteredCategories} onSearchValue={filterCategories} />
             <div className='w-full'>
             <Header />
             <main className='lg:flex max-w-screen-2xl mx-auto'>
@@ -93,3 +101,13 @@ function Checkout() {
 }
 
 export default Checkout
+export async function getServerSideProps(context){
+    const categories = await fetch('https://fakestoreapi.com/products/categories').then(res => res.json())
+
+    return { props: {
+      categories: categories
+    } 
+  }
+  
+  }
+  

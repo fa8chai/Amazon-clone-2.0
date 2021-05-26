@@ -5,15 +5,23 @@ import Header from '../components/Header';
 import Head from "next/head";
 import Order from '../components/Order';
 import Sidebar from "../components/Sidebar";
+import { useState } from "react";
 
-function Orders({ orders, session }) {
-
+function Orders({ orders, session, categories }) {
+    const [filteredCategories, setCategories] = useState(categories);
+    const filterCategories = (searchText) => {
+        const matchedCategories = categories.filter((category) =>
+            category.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setCategories([...matchedCategories]);
+    }
     return (
+        
         <div className='flex h-full'>
             <Head>
                 <title>{session && `${session.user.name}'s`} Orders | Amazon 2.0</title>
             </Head>
-            <Sidebar />
+            <Sidebar categories={filteredCategories} onSearchValue={filterCategories} />
             <div className='w-full'>
             <Header />
             <main className='max-w-screen-lg mx-auto p-10'>
@@ -52,12 +60,13 @@ export default Orders
 
 export async function getServerSideProps(context) {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+    const categories = await fetch('https://fakestoreapi.com/products/categories').then(res => res.json())
 
     const session = await getSession(context)
 
     if (!session) {
         return {
-            props: {}
+            props: {categories}
         }
     }
 
@@ -86,7 +95,8 @@ export async function getServerSideProps(context) {
     return {
         props: {
             orders,
-            session
+            session,
+            categories
         }
     }
 }

@@ -27,19 +27,11 @@ const StyledBadge = withStyles((theme) => ({
   }))(Badge);
   
 
-function Sidebar({ categories }) {
+function Sidebar({ categories, onSearchValue }) {
     const router = useRouter();
     const collapsed = useSelector(selectCollapsed);
     const [session] = useSession();
     const items = useSelector(selectItems); 
-    const [filteredCategories, setCategories] = useState(categories);
-    
-    const filterCategories = (searchText) => {
-        const matchedCategories = categories.filter((category) =>
-            category.toLowerCase().includes(searchText.toLowerCase())
-        );
-        setCategories([...matchedCategories]);
-    }
 
     const dispatch = useDispatch();
 
@@ -65,7 +57,7 @@ function Sidebar({ categories }) {
                         }
                         onInput={(event) =>
                             router.route === "/" &&
-                            filterCategories(event.target.value)
+                            onSearchValue(event.target.value)
                         }
                     />                    
                     </SidebarSearch>
@@ -86,8 +78,8 @@ function Sidebar({ categories }) {
                      
                 </MenuItem>
                 {
-                    filteredCategories?.length > 0 ? (
-                        filteredCategories?.map((category, i) => (
+                    categories.length > 0 ? (
+                        categories?.map((category, i) => (
                             <MenuItem  key={i} onClick={() => {
                                                 dispatch(setCollapsed(true));
                                                 dispatch(setCategory(category));
@@ -180,14 +172,3 @@ const SidebarHeaderContent = styled.div`
         }
 `;
 export default Sidebar
-
-export async function getServerSideProps(context){
-    const categories = await fetch('https://fakestoreapi.com/products/categories').then(res => res.json())
-    
-    return { props: {
-      categories: categories
-    } 
-  }
-  
-  }
-  

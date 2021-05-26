@@ -3,13 +3,15 @@ import Head from "next/head";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
+import { useState } from 'react';
 import Sidebar from "../components/Sidebar";
 import { useDispatch } from "react-redux";
 import { setProducts } from '../slices/basketSlice';
 import { useEffect, useState } from 'react';
 
-export default function Home({ products }) {
+export default function Home({ products, categories }) {
   const [filteredProducts, setfProducts] = useState(products);
+  const [filteredCategories, setCategories] = useState(categories);
   
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +26,12 @@ export default function Home({ products }) {
       setfProducts([...matchedProducts]);
   }
 
+  const filterCategories = (searchText) => {
+    const matchedCategories = categories.filter((category) =>
+        category.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setCategories([...matchedCategories]);
+}
   return (
     
     <div className='bg-gray-100 flex h-full'>
@@ -31,7 +39,7 @@ export default function Home({ products }) {
         <title>Amazon 2.0</title>
       </Head>
 
-      <Sidebar />
+      <Sidebar categories={filteredCategories} onSearchValue={filterCategories} />
 
       <div className='w-full'>
         <Header onSearchValue={filterProducts} />
@@ -52,6 +60,7 @@ export default function Home({ products }) {
 
 export async function getServerSideProps(context){
   const products = await fetch('https://fakestoreapi.com/products').then(res => res.json())
+  const categories = await fetch('https://fakestoreapi.com/products/categories').then(res => res.json())
   const MAX_RATING = 5;
   const MIN_RATING = 1;
   const getRating = () => {
@@ -65,7 +74,9 @@ export async function getServerSideProps(context){
     products: products.map(product => (
       {...product, 
         quantity: 0, rating: getRating(), hasPrime: getPrime() }
-    ))  } 
+    )),
+    categories: categories
+  } 
 }
 
 }
