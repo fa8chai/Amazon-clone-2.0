@@ -3,24 +3,26 @@ import Head from "next/head";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
-import { useState } from 'react';
 import Sidebar from "../components/Sidebar";
 import { useDispatch } from "react-redux";
 import { setProducts } from '../slices/basketSlice';
+import { useEffect, useState } from 'react';
 
 export default function Home({ products, categories }) {
-  const [filteredProducts, setProducts] = useState(products);
+  const [filteredProducts, setfProducts] = useState(products);
   const [filteredCategories, setCategories] = useState(categories);
   
   const dispatch = useDispatch();
-  dispatch(setProducts({products}));
+  useEffect(() => {
+    dispatch(setProducts({products}));
+  }, [products])
 
 
   const filterProducts = (searchText) => {
       const matchedProducts = products.filter((product) =>
           product.title.toLowerCase().includes(searchText.toLowerCase())
       );
-      setProducts([...matchedProducts]);
+      setfProducts([...matchedProducts]);
   }
 
   const filterCategories = (searchText) => {

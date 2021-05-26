@@ -27,7 +27,7 @@ function Product({ id, title, price, description, category, image, quantity, rat
         if (index >= 0) {
             dispatch(add(product))
         }else{
-            dispatch(addToBasket(product));
+            localStorage.setItem('items', [...items, {...product, quantity: 1}])
         }
     }
     const handleClick = () => {

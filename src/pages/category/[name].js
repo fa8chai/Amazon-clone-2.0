@@ -30,7 +30,7 @@ function CategoryPage() {
                 <title>Amazon 2.0 | {category}</title>
             </Head>
             <main className='max-w-screen-2xl mx-auto mt-5'>
-                {categoryProducts.length > 0 ? (
+                {categoryProducts?.length > 0 ? (
                     <ProductFeed products={categoryProducts} />
                 ) : (
                     <h1 className='text-center mx-auto text-2xl py-4'>No products…</h1>

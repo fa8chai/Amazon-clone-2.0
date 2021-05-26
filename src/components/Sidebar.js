@@ -82,7 +82,8 @@ function Sidebar({ categories, onSearchValue }) {
                         categories?.map((category, i) => (
                             <MenuItem  key={i} onClick={() => {
                                                 dispatch(setCollapsed(true));
-                                                dispatch(setCategory(category))
+                                                dispatch(setCategory(category));
+                                                router.push(`/category/${category}`)
                             }} ><div>{category}</div></MenuItem>
                         ))
                     ) : (
