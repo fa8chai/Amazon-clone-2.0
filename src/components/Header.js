@@ -6,13 +6,14 @@ import {
 } from '@heroicons/react/outline';
 import { signIn, signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectItems } from '../slices/basketSlice';
 
 function Header({ onSearchValue }) {
     const [session] = useSession();
     const router = useRouter();
     const items = useSelector(selectItems); 
+    const dispatch = useDispatch();
 
     return (
         <header className='sticky top-0 left-0 right-0 z-50'>
@@ -66,7 +67,7 @@ function Header({ onSearchValue }) {
             
             <div className='flex items-center space-x-3 p-2 pl-6 bg-amazon_blue-light text-white text-sm'>
                 <p className='link'>
-                    <MenuIcon className='h-6 mr-1' />
+                    <MenuIcon className='h-6 mr-1' onClick={() => dispatch(setCollapsed(false))} />
                     All
                 </p>
                 <p className='link'>Prime Video</p>

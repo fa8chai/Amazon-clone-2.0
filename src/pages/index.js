@@ -4,8 +4,9 @@ import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 import { useState } from 'react';
+import Sidebar from "../components/Sidebar";
 
-export default function Home({ products }) {
+export default function Home({ products, categories }) {
   const [filteredProducts, setProducts] = useState(products);
 
   const filterProducts = (searchText) => {
@@ -16,28 +17,33 @@ export default function Home({ products }) {
   }
   return (
     
-    <div className='bg-gray-100'>
+    <div className='bg-gray-100 flex h-full'>
       <Head>
         <title>Amazon 2.0</title>
       </Head>
 
-      <Header onSearchValue={filterProducts} />
-      <main className='max-w-screen-2xl mx-auto'>
-        <Banner />
-        {filteredProducts.length > 0 ? (
-                    <ProductFeed products={filteredProducts} />
-                ) : (
-                    <h1 className="text-center text-2xl py-4">
-                        No matching products…
-                    </h1>
-                )}
-      </main>
+      <Sidebar categories={categories} onSearchValue={filterProducts} />
+
+      <div className='w-full'>
+        <Header onSearchValue={filterProducts} />
+        <main className='max-w-screen-2xl mx-auto'>
+          <Banner />
+          {filteredProducts.length > 0 ? (
+                      <ProductFeed products={filteredProducts} />
+                  ) : (
+                      <h1 className="text-center text-2xl py-4">
+                          No matching products…
+                      </h1>
+                  )}
+        </main>
+      </div>
     </div>
   );
 }
 
 export async function getServerSideProps(context){
   const products = await fetch('https://fakestoreapi.com/products').then(res => res.json())
+  const categories = await fetch('https://fakestoreapi.com/products/categories').then(res => res.json())
   const MAX_RATING = 5;
   const MIN_RATING = 1;
   const getRating = () => {
@@ -51,7 +57,9 @@ export async function getServerSideProps(context){
     products: products.map(product => (
       {...product, 
         quantity: 0, rating: getRating(), hasPrime: getPrime() }
-    ))
-  } }
+    )),
+    categories: categories
+  } 
+}
 
 }
