@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
 import { selectItems } from "../slices/basketSlice";
@@ -7,14 +7,12 @@ import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/client";
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
-import { setCollapsed } from "../slices/basketSlice";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 function Checkout() {
     const items = useSelector(selectItems);
     const [session] = useSession();
-    const dispatch = useDispatch();
     const total = useSelector(state => state.basket.items.reduce((total, item) => total + item.price * item.quantity , 0));
     const totalItems = useSelector(state => state.basket.items.reduce((total, item) => total + item.quantity , 0));
 

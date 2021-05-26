@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 import React, { useState } from 'react';
 import { ProSidebar, Menu, MenuItem , SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -39,7 +39,7 @@ function Sidebar({ categories, onSearchValue }) {
         <ProSidebar collapsedWidth={collapsed && '0'} breakPoint={!collapsed ? 'xl' : ''} toggled='true' collapsed={collapsed}>
             <SidebarHeader>
                 <SidebarHeaderContent>
-                    {session && <h3>Hello {session.user.name}</h3>}
+                    {session && <div className='flex justify-between p-2'><h3>Hello {session.user.name}</h3> <Avatar alt={session.user.name} src={session.user.image} /></div>}
                     <div onClick={!session ? signIn: signOut}><Button>{!session ? 'Sign In':'Logout'}</Button></div>
                 </SidebarHeaderContent>
             </SidebarHeader>
