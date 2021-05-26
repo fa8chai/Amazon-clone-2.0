@@ -14,13 +14,10 @@ function ProductPage() {
     const router = useRouter();
     const { id } = router.query;
     const product = useSelector(selectProduct);
+    const items = useSelector(selectItems)
     const dispatch = useDispatch();
     const [loaded,setLoaded] = useState(false)
-    const [items, setItems] = useState([]);
-
-    useEffect(() => {
-        setItems(localStorage.getItem('items'))
-    }, [])
+    
     const addItemToBasket = () => {
         const index = items?.findIndex(basketItem => basketItem.id === product.id);    
 

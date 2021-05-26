@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  items: [],
   product: null,
   collapsed: true,
   products: null,
