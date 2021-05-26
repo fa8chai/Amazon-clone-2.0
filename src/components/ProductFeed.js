@@ -18,7 +18,7 @@ function ProductFeed({ products }) {
                     hasPrime={hasPrime}
                 />
             ))}
-            <img className='md:col-span-full' src='https://links.papareact.com/ikj' />
+            <img className='md:col-span-full mx-auto' src='https://links.papareact.com/ikj' />
 
             <div className='md:col-span-2'>
                 {products.slice(4, 5).map(({ id, title, price, description, category, image, quantity, rating, hasPrime }) => (
