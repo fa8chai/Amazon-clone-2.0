@@ -3,6 +3,7 @@ import Head from "next/head";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
+import { useState } from 'react';
 
 export default function Home({ products }) {
   const [filteredProducts, setProducts] = useState(products);
@@ -27,7 +28,7 @@ export default function Home({ products }) {
                     <ProductFeed products={filteredProducts} />
                 ) : (
                     <h1 className="text-center text-2xl py-4">
-                        🙁 No matching products…
+                        No matching products…
                     </h1>
                 )}
       </main>
