@@ -8,7 +8,7 @@ function CategoryPage() {
     const category = useSelector(selectCategory);
     const [loaded,setLoaded] = useState(false)
 
-    const categoryProducts = products.filter(product => product.category === category);
+    const categoryProducts = products?.filter(product => product.category === category);
     
     useEffect(() => {
         if(!category){
