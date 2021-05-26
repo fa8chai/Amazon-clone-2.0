@@ -5,6 +5,14 @@ import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 
 export default function Home({ products }) {
+  const [filteredProducts, setProducts] = useState(products);
+
+  const filterProducts = (searchText) => {
+      const matchedProducts = products.filter((product) =>
+          product.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setProducts([...matchedProducts]);
+  }
   return (
     
     <div className='bg-gray-100'>
@@ -12,10 +20,16 @@ export default function Home({ products }) {
         <title>Amazon 2.0</title>
       </Head>
 
-      <Header />
+      <Header searchValue={filterProducts} />
       <main className='max-w-screen-2xl mx-auto'>
         <Banner />
-        <ProductFeed products={products} />
+        {filteredProducts.length > 0 ? (
+                    <ProductFeed products={filteredProducts} />
+                ) : (
+                    <h1 className="text-center text-2xl py-4">
+                        🙁 No matching products…
+                    </h1>
+                )}
       </main>
     </div>
   );
