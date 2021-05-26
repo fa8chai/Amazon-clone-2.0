@@ -86,7 +86,7 @@ function Sidebar({ categories }) {
                      
                 </MenuItem>
                 {
-                    filteredCategories.length > 0 ? (
+                    filteredCategories?.length > 0 ? (
                         filteredCategories?.map((category, i) => (
                             <MenuItem  key={i} onClick={() => {
                                                 dispatch(setCollapsed(true));

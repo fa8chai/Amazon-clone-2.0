@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setProducts } from '../slices/basketSlice';
 import { useEffect, useState } from 'react';
 
-export default function Home({ products, categories }) {
+export default function Home({ products }) {
   const [filteredProducts, setfProducts] = useState(products);
   
   const dispatch = useDispatch();
@@ -52,7 +52,6 @@ export default function Home({ products, categories }) {
 
 export async function getServerSideProps(context){
   const products = await fetch('https://fakestoreapi.com/products').then(res => res.json())
-  const categories = await fetch('https://fakestoreapi.com/products/categories').then(res => res.json())
   const MAX_RATING = 5;
   const MIN_RATING = 1;
   const getRating = () => {
@@ -66,9 +65,7 @@ export async function getServerSideProps(context){
     products: products.map(product => (
       {...product, 
         quantity: 0, rating: getRating(), hasPrime: getPrime() }
-    )),
-    categories: categories
-  } 
+    ))  } 
 }
 
 }
