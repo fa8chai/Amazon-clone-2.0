@@ -43,7 +43,6 @@ function ProductPage() {
   
     return (
         <div>
-            {console.log(product)}
             <Head>
                 <title>Amazon 2.0 | {product?.title}</title>
             </Head>

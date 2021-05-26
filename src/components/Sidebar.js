@@ -5,10 +5,11 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
-import { selectCollapsed, selectItems, setCollapsed } from '../slices/basketSlice';
+import { selectCollapsed, selectItems, setCategory, setCollapsed } from '../slices/basketSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton } from '@material-ui/core';
 import { signIn, signOut, useSession } from 'next-auth/client';
@@ -21,6 +22,7 @@ const StyledBadge = withStyles((theme) => ({
       top: 13,
       border: `2px solid ${theme.palette.background.paper}`,
       padding: '0 4px',
+      color: '#FBBF24'
     },
   }))(Badge);
   
@@ -50,7 +52,7 @@ function Sidebar({ categories, onSearchValue }) {
                         type="text"
                         placeholder={
                             router.route === "/"
-                                ? "Search products…"
+                                ? "Search Categories…"
                                 : ""
                         }
                         onInput={(event) =>
@@ -61,7 +63,7 @@ function Sidebar({ categories, onSearchValue }) {
                     </SidebarSearch>
                 </MenuItem>
                 <MenuItem icon={ 
-                        <StyledBadge max={20} badgeContent={items.length} color="secondary">
+                        <StyledBadge max={20} badgeContent={items.length}>
                                 <ShoppingCartIcon />
                         </StyledBadge>}
                 >   
@@ -76,11 +78,17 @@ function Sidebar({ categories, onSearchValue }) {
                      
                 </MenuItem>
                 {
-                    categories?.map(category => (
-                        <MenuItem  key={category.id} onClick={() => {
-                                            dispatch(setCollapsed(true));
-                        }} ><div>{category.title}</div></MenuItem>
-                    ))
+                    categories.length > 0 ? (
+                        categories?.map((category, i) => (
+                            <MenuItem  key={i} onClick={() => {
+                                                dispatch(setCollapsed(true));
+                                                dispatch(setCategory(category))
+                            }} ><div>{category}</div></MenuItem>
+                        ))
+                    ) : (
+                        <MenuItem><div>No matching categories…</div></MenuItem>
+                    )
+                    
                  }
                
             </Menu>
@@ -139,7 +147,7 @@ const SidebarContainer = styled.div`
         overflow-y: auto;
     }
     > .pro-sidebar > .pro-sidebar-inner {
-    background-color: #1d1d1d;
+    background-color: #232F3E;
 }
 `;
 const SidebarHeaderContent = styled.div`
@@ -148,11 +156,11 @@ const SidebarHeaderContent = styled.div`
     flex-direction: column;
     > div > button {
         color: black;
-        background-color: yellow; 
+        background-color: #FBBF24; 
         margin-top: 10px;
         width: 100%;
         :hover{
-            background-color: yellow;
+            background-color: #FBBF24;
             opacity: 0.8;
         }
     }

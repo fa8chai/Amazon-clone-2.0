@@ -8,6 +8,8 @@ import { signIn, signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectItems } from '../slices/basketSlice';
+import { setCollapsed } from "../slices/basketSlice";
+
 
 function Header({ onSearchValue }) {
     const [session] = useSession();
@@ -58,7 +60,12 @@ function Header({ onSearchValue }) {
                     <p className='font-extrabold md:text-sm'>& Orders</p>
                 </div>
                 <div onClick={() => router.push('/checkout')} className='relative link flex items-center'>
-                    <span className='absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold'>{items.length}</span>
+                    {items.length > 0 ? (
+                        <span className='absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold'>{items.length}</span>
+                             ): (
+                                <span></span>
+                            )
+                    }
                     <ShoppingCartIcon  className='h-10'/>
                     <p className='hidden md:inline mt-2 font-extrabold md:text-sm '>Basket</p>
                 </div>

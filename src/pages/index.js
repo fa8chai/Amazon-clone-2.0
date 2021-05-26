@@ -5,9 +5,16 @@ import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 import { useState } from 'react';
 import Sidebar from "../components/Sidebar";
+import { useDispatch } from "react-redux";
+import { setProducts } from '../slices/basketSlice';
 
 export default function Home({ products, categories }) {
   const [filteredProducts, setProducts] = useState(products);
+  const [filteredCategories, setCategories] = useState(categories);
+  
+  const dispatch = useDispatch();
+  dispatch(setProducts({products}));
+
 
   const filterProducts = (searchText) => {
       const matchedProducts = products.filter((product) =>
@@ -15,6 +22,13 @@ export default function Home({ products, categories }) {
       );
       setProducts([...matchedProducts]);
   }
+
+  const filterCategories = (searchText) => {
+    const matchedCategories = categories.filter((category) =>
+        category.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setCategories([...matchedCategories]);
+}
   return (
     
     <div className='bg-gray-100 flex h-full'>
@@ -22,7 +36,7 @@ export default function Home({ products, categories }) {
         <title>Amazon 2.0</title>
       </Head>
 
-      <Sidebar categories={categories} onSearchValue={filterProducts} />
+      <Sidebar categories={filteredCategories} onSearchValue={filterCategories} />
 
       <div className='w-full'>
         <Header onSearchValue={filterProducts} />

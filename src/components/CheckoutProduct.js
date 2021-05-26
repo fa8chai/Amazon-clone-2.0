@@ -2,10 +2,12 @@ import { StarIcon, PlusIcon, MinusIcon, XCircleIcon } from "@heroicons/react/sol
 import Image from "next/image";
 import Currency from 'react-currency-formatter';
 import { useDispatch } from 'react-redux';
-import { removeFromBasket, remove, add } from "../slices/basketSlice";
+import { removeFromBasket, remove, add, setCollapsed } from "../slices/basketSlice";
+import { useRouter } from 'next/router';
 
 function CheckoutProduct({ id, title, price, description, category, image, quantity, rating, hasPrime }) {
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const removeItemFromBasket = () => {
         if (quantity > 1) {
@@ -35,6 +37,10 @@ function CheckoutProduct({ id, title, price, description, category, image, quant
         <div className='grid grid-cols-5 relative'>
             <XCircleIcon className='absolute top-0 z-30 left-2 h-5 text-red-500 cursor-pointer' onClick={removeProduct} />
             <Image 
+                onClick={() => {
+                    dispatch(setCollapsed(true));
+                    router.push(`/products/${id}`)
+                }}
                 src={image}
                 height={200}
                 width={200}
