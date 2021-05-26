@@ -20,7 +20,7 @@ export default function Home({ products }) {
         <title>Amazon 2.0</title>
       </Head>
 
-      <Header searchValue={filterProducts} />
+      <Header onSearchValue={filterProducts} />
       <main className='max-w-screen-2xl mx-auto'>
         <Banner />
         {filteredProducts.length > 0 ? (
