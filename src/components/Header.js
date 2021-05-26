@@ -14,7 +14,7 @@ import { setCollapsed } from "../slices/basketSlice";
 function Header({ onSearchValue }) {
     const [session] = useSession();
     const router = useRouter();
-    const items = localStorage.getItem('items'); 
+    const items = useSelector(selectItems); 
     const dispatch = useDispatch();
 
     return (
@@ -62,7 +62,7 @@ function Header({ onSearchValue }) {
                 <div onClick={() => router.push('/checkout')} className='relative link flex items-center'>
                     {items.length > 0 ? (
                         <span className='absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold'>{items.length}</span>
-                             ): (
+                            ): (
                                 <span></span>
                             )
                     }
