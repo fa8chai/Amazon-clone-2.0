@@ -3,6 +3,7 @@ import { selectCategory, selectProducts } from "../../slices/basketSlice";
 import Router from 'next/router'
 import { useEffect, useState } from 'react';
 import Head from "next/head";
+import ProductFeed from "../../components/ProductFeed";
 
 function CategoryPage() {
     const products = useSelector(selectProducts);

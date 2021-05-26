@@ -29,7 +29,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                         <div className='relative'>
                             <img className='h-20 object-contain sm:h-32' src={image} alt='' />
                             {items?.map(item => (
-                                <span className='absolute top-0 left-0 h-4 w-4 text-center rounded-full text-yellow z-30'>{item.quantity}</span>
+                                <span className='absolute top-0 left-0 h-4 w-4 text-sm text-center rounded-full z-30 border-yellow-400 text-yellow-400'>{item.quantity}</span>
                             ))}
                         </div>
                     ))}
