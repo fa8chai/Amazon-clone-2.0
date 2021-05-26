@@ -23,28 +23,10 @@ function ProductPage() {
 
         if (index >= 0) {
             dispatch(add(product))
-            dispatch(setProduct({...product, quantity: product.quantity + 1}))
         }else{
             dispatch(addToBasket(product));
-            dispatch(setProduct({...product, quantity: 1}))
-
         }
     }
-
-    const removeItemFromBasket = () => {
-        if (product.quantity > 1) {
-            dispatch(removeFromBasket({ id }))
-            dispatch(setProduct({...product, quantity: product.quantity - 1}))
-
-        } else {
-            dispatch(setProduct({...product, quantity: 0}))
-
-            dispatch(remove({ id }))
-        }
-    };
-    const addProduct = () => {
-        dispatch(add(product));
-    }   
     useEffect(() => {
         if(!product){
 
@@ -93,17 +75,7 @@ function ProductPage() {
                     <p className='text-xs text-gray-500'>FREE Next-day Delivery</p>
                 </div>
                 )}
-
-                {product?.quantity === 0 ? (
-                    <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
-
-                ) : (
-                    <div className='grid grid-cols-5'>
-                        <PlusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={addProduct} />
-                        <div className='text-center mx-auto'>{product?.quantity}</div>
-                        <MinusIcon className='col-span-2 h-7 text-yellow-500 cursor-pointer text-center mx-auto' onClick={removeItemFromBasket} />
-                    </div>
-                )}
+                <button onClick={addItemToBasket} className='my-5 button'>Add to Basket</button>
             </div>
             </div>
         </div>
