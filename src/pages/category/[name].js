@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { useEffect, useState } from 'react';
 import Head from "next/head";
 import ProductFeed from "../../components/ProductFeed";
+import ProductFeed from "../../components/ProductFeed";
 
 function CategoryPage({ categories }) {
     const products = useSelector(selectProducts);
